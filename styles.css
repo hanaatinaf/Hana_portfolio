@@ -480,87 +480,161 @@ body {
     color: #ff6b6b;
 }
 
-/* Skills Section */
-.skills-section {
+/* Skills & Education Combined Section */
+.skills-edu-section {
     padding: 100px 20px;
     background: rgba(26, 31, 46, 0.5);
     border-top: 1px solid rgba(107, 125, 255, 0.1);
 }
 
-.skills-categories-wrapper {
-    display: flex;
-    flex-direction: column;
-    gap: 3rem;
+.skills-edu-grid {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr;
+    gap: 4rem;
+    align-items: start;
 }
 
-.skill-category-group {
-    display: flex;
-    flex-direction: column;
-    gap: 1.2rem;
-}
-
-.skill-category-label {
-    color: var(--accent);
-    font-size: 0.8rem;
+.panel-label {
+    font-size: 1rem;
     font-weight: 800;
     letter-spacing: 2px;
     text-transform: uppercase;
-    padding-bottom: 0.6rem;
-    border-bottom: 1px solid rgba(107, 125, 255, 0.15);
+    color: var(--accent);
+    margin-bottom: 1.8rem;
+    padding-bottom: 0.8rem;
+    border-bottom: 2px solid rgba(107, 125, 255, 0.2);
 }
 
-.skill-badges-row {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 1rem;
+/* Flat skill badges */
+.skills-flat-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0.8rem;
 }
 
-.skill-badge {
+.flat-badge {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     align-items: center;
     gap: 0.6rem;
-    background: rgba(26, 31, 46, 0.8);
+    background: rgba(16, 22, 48, 0.9);
     border: 1px solid rgba(107, 125, 255, 0.12);
-    border-radius: 12px;
-    padding: 1.2rem 1.4rem;
-    min-width: 85px;
-    transition: all 0.3s ease;
+    border-radius: 8px;
+    padding: 0.7rem 0.9rem;
+    transition: all 0.25s ease;
     cursor: default;
 }
 
-.skill-badge:hover {
+.flat-badge:hover {
     border-color: var(--accent);
-    transform: translateY(-5px);
-    box-shadow: 0 8px 24px rgba(107, 125, 255, 0.15);
+    background: rgba(107, 125, 255, 0.08);
+    transform: translateY(-2px);
 }
 
-.skill-badge img {
-    width: 42px;
-    height: 42px;
+.flat-badge img {
+    width: 24px;
+    height: 24px;
     object-fit: contain;
+    flex-shrink: 0;
 }
 
-.skill-badge span {
-    font-size: 0.78rem;
-    color: var(--text-muted);
-    font-weight: 600;
-    text-align: center;
+.flat-badge span {
+    font-size: 0.8rem;
+    color: var(--text-light);
+    font-weight: 500;
     white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
-.skill-badge-text {
-    padding: 1rem 1.4rem;
+.flat-badge-text {
     justify-content: center;
 }
 
-.skill-badge-text span {
-    font-size: 0.85rem;
-    color: var(--text-light);
+.flat-badge-text span {
+    color: var(--text-muted);
+    font-size: 0.78rem;
 }
 
 .icon-invert {
     filter: brightness(0) invert(1);
+}
+
+/* Education Timeline */
+.edu-timeline {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    position: relative;
+    padding-left: 1.5rem;
+}
+
+.edu-timeline::before {
+    content: '';
+    position: absolute;
+    left: 7px;
+    top: 8px;
+    bottom: 8px;
+    width: 2px;
+    background: linear-gradient(to bottom, var(--accent), rgba(107, 125, 255, 0.1));
+}
+
+.edu-timeline-item {
+    display: flex;
+    gap: 1.2rem;
+    padding-bottom: 2rem;
+    position: relative;
+}
+
+.edu-timeline-item:last-child {
+    padding-bottom: 0;
+}
+
+.edu-dot {
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--accent), #ff6b6b);
+    flex-shrink: 0;
+    margin-top: 3px;
+    position: absolute;
+    left: -1.5rem;
+    box-shadow: 0 0 10px rgba(107, 125, 255, 0.4);
+}
+
+.edu-timeline-content h4 {
+    color: var(--white);
+    font-size: 0.95rem;
+    font-weight: 700;
+    margin-bottom: 0.3rem;
+}
+
+.edu-tl-school {
+    color: var(--accent);
+    font-size: 0.85rem;
+    font-weight: 600;
+    margin-bottom: 0.2rem;
+}
+
+.edu-tl-date {
+    color: var(--text-muted);
+    font-size: 0.8rem;
+}
+
+@media (max-width: 900px) {
+    .skills-edu-grid {
+        grid-template-columns: 1fr;
+        gap: 3rem;
+    }
+    .skills-flat-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media (max-width: 480px) {
+    .skills-flat-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
 }
 
 /* Experience Section */
