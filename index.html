@@ -402,5 +402,33 @@
     </footer>
 
     <script src="script.js"></script>
+
+    <!-- AI Chat Widget -->
+    <div id="chat-widget">
+        <button id="chat-toggle" aria-label="Chat with AI">
+            <span id="chat-icon">💬</span>
+            <span id="chat-close-icon" style="display:none;">✕</span>
+        </button>
+        <div id="chat-window" style="display:none;">
+            <div id="chat-header">
+                <div id="chat-header-info">
+                    <div id="chat-avatar">H</div>
+                    <div>
+                        <p id="chat-name">Ask about Hana</p>
+                        <p id="chat-status">● AI Assistant</p>
+                    </div>
+                </div>
+            </div>
+            <div id="chat-messages">
+                <div class="chat-msg ai-msg">
+                    <p>Hi! 👋 I'm Hana's AI assistant. Ask me anything about her experience, skills, or projects!</p>
+                </div>
+            </div>
+            <div id="chat-input-area">
+                <input type="text" id="chat-input" placeholder="Ask something..." />
+                <button id="chat-send">→</button>
+            </div>
+        </div>
+    </div>
 </body>
 </html>

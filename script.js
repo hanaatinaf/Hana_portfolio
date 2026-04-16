@@ -208,4 +208,82 @@ if (contactForm) {
     });
 }
 
+// AI Chat Widget
+const chatToggle   = document.getElementById('chat-toggle');
+const chatWindow   = document.getElementById('chat-window');
+const chatIcon     = document.getElementById('chat-icon');
+const chatCloseIcon = document.getElementById('chat-close-icon');
+const chatInput    = document.getElementById('chat-input');
+const chatSend     = document.getElementById('chat-send');
+const chatMessages = document.getElementById('chat-messages');
+
+let chatHistory = [];
+let isOpen = false;
+
+chatToggle.addEventListener('click', () => {
+    isOpen = !isOpen;
+    chatWindow.style.display = isOpen ? 'flex' : 'none';
+    chatIcon.style.display = isOpen ? 'none' : 'inline';
+    chatCloseIcon.style.display = isOpen ? 'inline' : 'none';
+    if (isOpen) chatInput.focus();
+});
+
+function addMessage(text, role) {
+    const div = document.createElement('div');
+    div.className = `chat-msg ${role === 'user' ? 'user-msg' : 'ai-msg'}`;
+    div.innerHTML = `<p>${text}</p>`;
+    chatMessages.appendChild(div);
+    chatMessages.scrollTop = chatMessages.scrollHeight;
+    return div;
+}
+
+function showTyping() {
+    const div = document.createElement('div');
+    div.className = 'chat-msg chat-typing';
+    div.id = 'typing-indicator';
+    div.innerHTML = '<p>Thinking...</p>';
+    chatMessages.appendChild(div);
+    chatMessages.scrollTop = chatMessages.scrollHeight;
+}
+
+function removeTyping() {
+    const typing = document.getElementById('typing-indicator');
+    if (typing) typing.remove();
+}
+
+async function sendMessage() {
+    const text = chatInput.value.trim();
+    if (!text) return;
+
+    chatInput.value = '';
+    chatSend.disabled = true;
+    addMessage(text, 'user');
+    chatHistory.push({ role: 'user', content: text });
+    showTyping();
+
+    try {
+        const res = await fetch('/api/chat', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ messages: chatHistory })
+        });
+        const data = await res.json();
+        removeTyping();
+        const reply = data.response || 'Sorry, something went wrong.';
+        addMessage(reply, 'ai');
+        chatHistory.push({ role: 'assistant', content: reply });
+    } catch (err) {
+        removeTyping();
+        addMessage('Sorry, I\'m having trouble connecting. Please try again!', 'ai');
+    }
+
+    chatSend.disabled = false;
+    chatInput.focus();
+}
+
+chatSend.addEventListener('click', sendMessage);
+chatInput.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') sendMessage();
+});
+
 console.log('✨ Portfolio loaded with advanced animations!');
